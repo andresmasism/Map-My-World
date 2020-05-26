@@ -2,15 +2,16 @@
 
 <launch>
   <!-- Arguments for launch file with defaults provided -->
-  <arg name="database_path"     default="$(find my_robot)/maps/rtabmap.db"/>
+  <arg name="database_path"     default="rtabmap.db"/>
   <arg name="rgb_topic"   default="/camera/rgb/image_raw"/>
   <arg name="depth_topic" default="/camera/depth/image_raw"/>
   <arg name="camera_info_topic" default="/camera/rgb/camera_info"/>
+  <!--arg name="scan_info" default="/my_robot/laser/scan"/-->    
 
 
   <!-- Mapping Node -->
   <group ns="rtabmap">
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">
 
       <!-- Basic RTAB-Map Parameters -->
       <param name="database_path"       type="string" value="$(arg database_path)"/>
@@ -52,7 +53,10 @@
       <param name="Vis/MinInliers" type="string" value="15"/>
 
       <!-- Set to false to avoid saving data when robot is not moving -->
-      <param name="Mem/NotLinkedNodesKept" type="string" value="false"/>
+      <!--param name="Mem/NotLinkedNodesKept" type="string" value="false"/-->
+
+      <param name="Mem/IncrementalMemory" type="string" value="false"/>
+
     </node>
   </group>
 </launch>
